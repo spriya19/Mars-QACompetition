@@ -1,0 +1,31 @@
+﻿[
+
+  {
+    "University": "Anna University",
+    "Country": "Aruba",
+    "Title": "B.Tech",
+    "Degree": "Information Technology",
+    "GraduationYear": 2010
+  },
+  {
+    "University": "Cuba University",
+    "Country": "Cuba",
+    "Title": "B.A",
+    "Degree": "Bachelor of Science",
+    "GraduationYear": 2015
+  },
+  {
+    "University": 12435457,
+    "Country": "Australia",
+    "Title": "B.SC",
+    "Degree": "@#!!$$@!@%!%%^",
+    "GraduationYear": 2008
+  },
+  {
+    "University": "@S#D$F123",
+    "Country": "Australia",
+    "Title": "B.SC",
+    "Degree": "............",
+    "GraduationYear": 2013
+  }
+]

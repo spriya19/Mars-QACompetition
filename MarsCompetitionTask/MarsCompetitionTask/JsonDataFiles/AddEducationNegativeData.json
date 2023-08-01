@@ -1,0 +1,26 @@
+﻿[
+	{
+		"University":"",
+		"Country": "India",
+		"Title": "B.Tech",
+		"Degree": "  ",
+		"GraduationYear": 2010
+
+	},
+	{
+		"University": "VRSCET",
+		"Country": "India",
+		"Title": "B.A",
+		"Degree": "",
+		"GraduationYear": 2007
+
+	},
+	{
+		"University": "VRSCET",
+		"Country": "India",
+		"Title": "B.A",
+		"Degree": "computer science",
+		"GraduationYear": 2005
+
+	}
+]

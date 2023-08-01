@@ -1,0 +1,28 @@
+﻿[
+  {
+    "University": "Anna University",
+    "Country": "Aruba",
+    "Title": "B.Tech",
+    "Degree": "Information Technology",
+    "GraduationYear": 2010
+  },
+
+  {
+    "University": "Auckland University",
+    "Country": "Country of College/University",
+    "Title": "Title",
+    "Degree": "BFA",
+    "GraduationYear": "Year of Graduation"
+  },
+
+  {
+    "University": "Anna University",
+    "Country": "Aruba",
+    "Title": "B.Tech",
+    "Degree": "Information Technology",
+    "GraduationYear": 2010
+  }
+  
+
+
+]
