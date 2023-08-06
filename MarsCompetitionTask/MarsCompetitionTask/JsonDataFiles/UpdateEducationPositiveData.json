@@ -1,17 +1,18 @@
 ﻿[
   {
-    "University": "Anna University",
-    "Country": "India",
-    "Title": "B.A",
-    "Degree": "Information Technology",
-    "GraduationYear": 2013
-  },
-  {
     "University": "Cuba University",
     "Country": "New Zealand",
     "Title": "M.B.A",
     "Degree": "Bachelor of Science",
     "GraduationYear": 2016
+  },
+
+  {
+    "University": "Anna University",
+    "Country": "India",
+    "Title": "B.A",
+    "Degree": "Information Technology",
+    "GraduationYear": 2013
   },
   {
     "University": 12435457,

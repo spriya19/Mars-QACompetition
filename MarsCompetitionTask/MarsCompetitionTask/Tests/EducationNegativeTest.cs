@@ -1,7 +1,10 @@
-﻿using MarsCompetitionTask.Pages;
+﻿using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports;
+using MarsCompetitionTask.Pages;
 using MarsCompetitionTask.TestModel;
 using MarsCompetitionTask.Utilities;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -12,8 +15,20 @@ using System.Threading.Tasks;
 namespace MarsCompetitionTask.Tests
 {
     [TestFixture]
-    public class EducationNegativeTest : CommonDriver
+    public class EducationNegativeTest : CommonDriver 
     {
+#pragma warning disable CS8618
+
+        private ExtentReports extent;
+        private ExtentTest test;
+        [OneTimeSetUp]
+        public void SetupReporting()
+        {
+            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\Extent\\BaseTest.cs";
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
+            extent = new ExtentReports();
+            extent.AttachReporter(htmlReporter);
+        }
 
         private LoginTestPage loginTestPageObj = new LoginTestPage();
         private EducationNegativePage educationNegativePageObj = new EducationNegativePage();
@@ -31,6 +46,7 @@ namespace MarsCompetitionTask.Tests
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj.navigateSteps();
             loginTestPageObj.loginSteps();
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
         }
 
@@ -55,6 +71,10 @@ namespace MarsCompetitionTask.Tests
                 string graduationyear = data.Graduationyear;
                 //Console.WriteLine(graduationyear);
                 educationNegativePageObj.addEducation(university, country, title, degree, graduationyear);
+                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+                string screenshotPath = CaptureScreenshot(driver, "AddEducationNegative");
+                test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+
             }
         }
         [Test, Order(2)]
@@ -73,13 +93,30 @@ namespace MarsCompetitionTask.Tests
                 string degree = data.Degree;
                 string graduationyear = data.Graduationyear;
                 educationNegativePageObj.updateEducation(university, country, title, degree, graduationyear);
+                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+                string screenshotPath = CaptureScreenshot(driver, "UpdateEducationNegative");
+                test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+
             }
         }
 
-        [TearDown]
         public void TearDownAction()
         {
             driver.Quit();
+            extent.Flush();
+        }
+        private string CaptureScreenshot(IWebDriver driver, string screenshotName)
+        {
+            ITakesScreenshot screenshotDriver = (ITakesScreenshot)driver;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+            string screenshotPath = Path.Combine(@"C:\priya\Intenship\Competition Task\Mars-QACompetition\MarsCompetitionTask\MarsCompetitionTask\NunitScreenshot\", $"{screenshotName}_{DateTime.Now:yyyyMMddHHmmss}.png");
+            screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+            return screenshotPath;
+        }
+        [OneTimeTearDown]
+        public void ExtentTeardown()
+        {
+            extent.Flush();
         }
     }
 }

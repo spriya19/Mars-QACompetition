@@ -22,7 +22,7 @@ namespace MarsCompetitionTask.Pages
         private static IWebElement graduationyearDropDown => driver.FindElement(By.Name("yearOfGraduation"));
         private static IWebElement addButton => driver.FindElement(By.XPath("//input[@value='Add']"));
         private static IWebElement messageBox => driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
-        private static IWebElement createdRecord => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td[1]"));
+        //private static IWebElement createdRecord => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td[1]"));
         private static IWebElement updateButton => driver.FindElement(By.XPath("//input[@value='Update']"));
         public void addEducation(string university, string country, string title, string degree, string graduationyear)
         {
@@ -61,6 +61,7 @@ namespace MarsCompetitionTask.Pages
         {
                 Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
                 educationTab.Click();
+           // Thread.Sleep(2000);
                 string editIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[1]";
                 IWebElement editIcon = driver.FindElement(By.XPath(editIconXPath));
                 editIcon.Click();

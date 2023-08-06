@@ -10,19 +10,10 @@ namespace MarsCompetitionTask.Utilities
 {
     public class CommonDriver
     {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static IWebDriver driver;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public void Initialize()
-        {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
+#pragma warning disable CS8618
 
-        }
-        public void Close()
-        {
-            driver.Close();
-        }
+        public static  IWebDriver driver;
+       
     }
 }
   

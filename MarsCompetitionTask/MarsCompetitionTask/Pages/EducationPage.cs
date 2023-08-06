@@ -17,12 +17,11 @@ using TechTalk.SpecFlow;
 using OpenQA.Selenium.Chrome;
 using System.Runtime.InteropServices.WindowsRuntime;
 
+
 namespace MarsCompetitionTask.Pages
 {
     public class EducationPage : CommonDriver
     {
-
-
         private static IWebElement educationTab => driver.FindElement(By.XPath("//div[@class='ui top attached tabular menu']//a[3]"));
         private static IWebElement addNewButton => driver.FindElement(By.XPath("//div[@class='ui bottom attached tab segment tooltip-target active']//div[contains(@class,'ui teal button')][normalize-space()='Add New']"));
         private static IWebElement universityTextBox => driver.FindElement(By.Name("instituteName"));
@@ -34,7 +33,7 @@ namespace MarsCompetitionTask.Pages
         private static IWebElement newEducationData => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td[1]"));
         private static IWebElement updateButton => driver.FindElement(By.XPath("//input[@value='Update']"));
         
-        private static IWebElement updatedEducationData => driver.FindElement(By.XPath(".//div[@data-tab='third']//table[@class='ui fixed table']//td"));
+        private static IWebElement verifyUpdatedEducationData => driver.FindElement(By.XPath(".//div[@data-tab='third']//table[@class='ui fixed table']//td"));
         private static IWebElement deletedData => driver.FindElement(By.XPath(".//div[@data-tab='third']//table[@class='ui fixed table']//td"));
         public void addEducation(string university, string country, string title, string degree, string graduationyear)
         {
@@ -48,12 +47,15 @@ namespace MarsCompetitionTask.Pages
             degreeTextBox.SendKeys(degree);
             graduationyearDropDown.SendKeys(graduationyear);
             addButton.Click();
+           
         }
 
         public string getVerifyNewEducationData()
         {
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             return newEducationData.Text;
+            
+
         }
         public void updateEducation(string university,string country,string title,string degree,string graduationyear)
         {
@@ -69,26 +71,26 @@ namespace MarsCompetitionTask.Pages
             degreeTextBox.Clear();
             degreeTextBox.SendKeys(degree);
             graduationyearDropDown.SendKeys(graduationyear);
-            Thread.Sleep(1000);
             updateButton.Click();
         }
 
        public string getverifyUpdatedEducationData()
        {
-            Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='third']//table[@class='ui fixed table']//td", 4);
-            //Thread.Sleep(2000);
-            return updatedEducationData.Text;
-            
-
+        //Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='third']//table[@class='ui fixed table']//td", 4);
+        Thread.Sleep(2000);
+            //string VerifyUpdatedDataRecordXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[1]";
+            //IWebElement VerifyUpdatedDataRecord = driver.FindElement(By.XPath(VerifyUpdatedDataRecordXPath));
+            //Console.WriteLine(VerifyUpdatedDataRecord);
+            return verifyUpdatedEducationData.Text;          
        }
         public void deleteEduData(string university, string degree)
         {
             Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
             educationTab.Click();
             string deleteIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[2]";
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             IWebElement deleteIcon = driver.FindElement(By.XPath(deleteIconXPath));
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             deleteIcon.Click();
            
         }
