@@ -46,7 +46,7 @@ namespace MarsCompetitionTask.Tests
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj.navigateSteps();
             loginTestPageObj.loginSteps();
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            //test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
         }
 

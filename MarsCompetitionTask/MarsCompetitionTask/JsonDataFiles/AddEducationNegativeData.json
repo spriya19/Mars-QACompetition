@@ -1,12 +1,12 @@
 ﻿[
 	{
-		"University":"",
-		"Country": "India",
-		"Title": "B.Tech",
-		"Degree": "  ",
-		"GraduationYear": 2010
-
+		"University": "Auckland University",
+		"Country": "Cuba",
+		"Title": "BFA",
+		"Degree": "BFA",
+		"GraduationYear": 2007
 	},
+
 	{
 		"University": "VRSCET",
 		"Country": "India",
@@ -23,4 +23,5 @@
 		"GraduationYear": 2005
 
 	}
+	
 ]
