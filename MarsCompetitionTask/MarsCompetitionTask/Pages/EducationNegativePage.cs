@@ -22,7 +22,6 @@ namespace MarsCompetitionTask.Pages
         private static IWebElement graduationyearDropDown => driver.FindElement(By.Name("yearOfGraduation"));
         private static IWebElement addButton => driver.FindElement(By.XPath("//input[@value='Add']"));
         private static IWebElement messageBox => driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
-        //private static IWebElement createdRecord => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[last()]/tr/td[1]"));
         private static IWebElement updateButton => driver.FindElement(By.XPath("//input[@value='Update']"));
         public void addEducation(string university, string country, string title, string degree, string graduationyear)
         {
@@ -40,21 +39,24 @@ namespace MarsCompetitionTask.Pages
             Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
             Thread.Sleep(2000);
             string popupMessage = messageBox.Text;
-            Console.WriteLine(popupMessage);
-            string expectedMessage1 = "Education has been added";
+            Console.WriteLine("messageBox.Text is: " + popupMessage);
+            //string expectedMessage1 = "Education has been added";
             string expectedMessage2 = "Please enter all the fields";
-            string expectedMessage3 = "This information is already exist";
-            string expectedMessage4 = "Education information was invalid";
-            string expectedMessage5 = "Duplicated data";
-            // Assert.That(popupMessage, Is.EqualTo(expectedMessage1).Or.EqualTo(expectedMessage2).Or.EqualTo(expectedMessage3).Or.EqualTo(expectedMessage4));
-            if (popupMessage == expectedMessage1)
+            string expectedMessage3 = "This information is already exist.";
+            //string expectedMessage4 = "Education information was invalid";
+            string expectedMessage4 = "Duplicated data";
+            if (popupMessage.Contains("has been added"))
             {
                 Console.WriteLine("Education has been added successfully");
             }
-            else if (popupMessage == expectedMessage2 || popupMessage == expectedMessage3 || popupMessage == expectedMessage4 || popupMessage == expectedMessage5)
+            else if ((popupMessage == expectedMessage2 || popupMessage == expectedMessage3 || popupMessage == expectedMessage4))
             {
-                IWebElement cancelIcon = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[2]"));
+                IWebElement cancelIcon = driver.FindElement(By.XPath("//input[@value='Cancel']"));
                 cancelIcon.Click();
+            }
+            else
+            {
+                Console.WriteLine("Check Error");
             }
         }
         public void updateEducation(string university, string country, string title, string degree, string graduationyear)
@@ -77,19 +79,23 @@ namespace MarsCompetitionTask.Pages
                 Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
                 Thread.Sleep(2000);
                 string popupMessage = messageBox.Text;
-                Console.WriteLine(popupMessage);
-                string expectedMessage1 = "Education as been Updated";
-                string expectedMessage2 = "Please enter all the fields"; 
-                string expectedMessage3 = "This information is already exist";
-                if (popupMessage == expectedMessage1)
-                {
-                    Console.WriteLine("Education as been updated successfully");
-                }
-                else if (popupMessage == expectedMessage2 || popupMessage == expectedMessage3)
-                {
-                    IWebElement cancelIcon = driver.FindElement(By.XPath("//tbody//input[@value='Cancel']"));
-                    cancelIcon.Click();
-                }
+            Console.WriteLine("messageBox.Text is: " + popupMessage);
+            //string expectedMessage1 = "Education as been Updated";
+            string expectedMessage2 = "Please enter all the fields"; 
+                string expectedMessage3 = "This information is already exist.";
+             if (popupMessage.Contains("as been updated"))
+             {
+                  Console.WriteLine("Education as been updated successfully");
+             }
+             else if ((popupMessage == expectedMessage2) || (popupMessage == expectedMessage3))
+             {
+                  IWebElement cancelIcon = driver.FindElement(By.XPath("//tbody//input[@value='Cancel']"));
+                  cancelIcon.Click();
+             }
+             else
+             {
+                 Console.WriteLine("Check Error");
+             } 
         }
 
         

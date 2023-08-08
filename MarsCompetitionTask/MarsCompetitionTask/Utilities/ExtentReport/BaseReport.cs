@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework.Interfaces;
 
 namespace MarsCompetitionTask.Utilities.ExtentReport
 {
@@ -19,11 +20,12 @@ namespace MarsCompetitionTask.Utilities.ExtentReport
         [OneTimeSetUp]
         public void SetupReporting()
         {
-            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\ExtentReport\\BaseReport.cs"; // Update this with the desired report path
+            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\ExtentReport\\BaseReport.cs";
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
         }
+        [TearDown]
 
         [OneTimeTearDown]
         public void ReportTeardown()

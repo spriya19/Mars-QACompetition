@@ -60,7 +60,7 @@ namespace MarsCompetitionTask.Pages
         public string getVerifyUpdateCertificationsList()
         {
             Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='fourth']//table//td", 6);
-            //Thread.Sleep(2000);
+           //Thread.Sleep(2000);
             return newUpdatedCertificate.Text;
         }
         public void deleteCertification(string certificate, string year)

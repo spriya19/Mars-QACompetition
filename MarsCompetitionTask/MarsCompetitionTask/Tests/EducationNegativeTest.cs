@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework.Interfaces;
 
 namespace MarsCompetitionTask.Tests
 {
@@ -24,7 +25,7 @@ namespace MarsCompetitionTask.Tests
         [OneTimeSetUp]
         public void SetupReporting()
         {
-            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\Extent\\BaseTest.cs";
+            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\ExtentReport\\BaseReport.cs";
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
@@ -74,7 +75,6 @@ namespace MarsCompetitionTask.Tests
                 test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                 string screenshotPath = CaptureScreenshot(driver, "AddEducationNegative");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-
             }
         }
         [Test, Order(2)]
