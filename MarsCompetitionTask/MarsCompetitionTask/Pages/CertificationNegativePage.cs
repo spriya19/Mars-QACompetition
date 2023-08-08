@@ -56,12 +56,12 @@ namespace MarsCompetitionTask.Pages
         }
         public void UpdateCertifications(string certificate, string certifiedFrom, string year)
         {
-            //Wait.WaitToBeClickable(driver, "XPath", "//a[normalize-space()='Certifications']", 20);
-            Thread.Sleep(2000);
+            Wait.WaitToBeClickable(driver, "XPath", "//a[normalize-space()='Certifications']", 20);
+            //Thread.Sleep(2000);
             certificationsTab.Click();
            string editiconXPath = $"//tbody/tr[td[text()='{certificate}']]//span[1]";
            IWebElement editIcon = driver.FindElement(By.XPath(editiconXPath));
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             editIcon.Click();
             certificateTextbox.Clear();
             certificateTextbox.SendKeys(certificate);
@@ -69,8 +69,8 @@ namespace MarsCompetitionTask.Pages
             certifiedFromTextbox.SendKeys(certifiedFrom);
             yearDropdown.SendKeys(year);
             updateButton.Click();
-            //Wait.WaitToBeVisible(driver, "XPath", " //div[@class='ns-box-inner']", 15);
-            Thread.Sleep(2000);
+            Wait.WaitToBeVisible(driver, "XPath", " //div[@class='ns-box-inner']", 15);
+            //Thread.Sleep(2000);
             //get the popup message text
             string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);

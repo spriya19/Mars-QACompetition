@@ -27,7 +27,7 @@ namespace MarsCompetitionTask.Pages
         {
             Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
             educationTab.Click();
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             addNewButton.Click();
             Wait.WaitToBeClickable(driver, "Name", "instituteName", 5);
             universityTextBox.SendKeys(university);
@@ -37,7 +37,7 @@ namespace MarsCompetitionTask.Pages
             graduationyearDropDown.SendKeys(graduationyear);
             addButton.Click();
             Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);
             //string expectedMessage1 = "Education has been added";
@@ -62,8 +62,7 @@ namespace MarsCompetitionTask.Pages
         public void updateEducation(string university, string country, string title, string degree, string graduationyear)
         {
                 Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
-                educationTab.Click();
-           // Thread.Sleep(2000);
+            educationTab.Click();
                 string editIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[1]";
                 IWebElement editIcon = driver.FindElement(By.XPath(editIconXPath));
                 editIcon.Click();
@@ -77,7 +76,6 @@ namespace MarsCompetitionTask.Pages
                 Thread.Sleep(1000);
                 updateButton.Click();
                 Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
-                Thread.Sleep(2000);
                 string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);
             //string expectedMessage1 = "Education as been Updated";

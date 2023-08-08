@@ -52,7 +52,7 @@ namespace MarsCompetitionTask.Pages
 
         public string getVerifyNewEducationData()
         {
-            Thread.Sleep(2000);
+            
             return newEducationData.Text;
             
 
@@ -77,18 +77,14 @@ namespace MarsCompetitionTask.Pages
        public string getverifyUpdatedEducationData()
        {
             Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='third']//table[@class='ui fixed table']//td", 4);
-            //Thread.Sleep(2000);
             return verifyUpdatedEducationData.Text;          
        }
         public void deleteEduData(string university, string degree)
         {
             Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
-            //Thread.Sleep(2000);
             educationTab.Click();
             string deleteIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[2]";
-            //Thread.Sleep(2000);
             IWebElement deleteIcon = driver.FindElement(By.XPath(deleteIconXPath));
-            //Thread.Sleep(1000);
             deleteIcon.Click();
            
         }
