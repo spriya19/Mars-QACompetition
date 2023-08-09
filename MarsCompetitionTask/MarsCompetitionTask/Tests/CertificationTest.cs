@@ -23,7 +23,6 @@ namespace MarsCompetitionTask.Tests
 
         private ExtentReports extent;
         private ExtentTest test;
-        
         [OneTimeSetUp]
         public void SetupReporting()
         {
@@ -32,6 +31,8 @@ namespace MarsCompetitionTask.Tests
             extent = new ExtentReports();
             //htmlReporter = new ExtentHtmlReporter("TestReport.html");
             extent.AttachReporter(htmlReporter);
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+
         }
 
         private LoginTestPage loginTestPageObj = new LoginTestPage();
@@ -67,8 +68,6 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(year);
                 // Perform the education test using the Education data
                 CertificationPageObj.addCertifications(certificate, certifiedFrom, year);
-                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-
                 string screenshotPath = CaptureScreenshot(driver, "AddCertification");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
 
@@ -79,7 +78,7 @@ namespace MarsCompetitionTask.Tests
                 }
                 else
                 {
-                    test.Pass("Added Certificate data and Expected Certificate data do not match");
+                    test.Fail("Added Certificate data and Expected Certificate data do not match");
                 }
             }
         }
@@ -103,7 +102,6 @@ namespace MarsCompetitionTask.Tests
                 try
                 {
                     CertificationPageObj.updateCertifications(certificate, certifiedFrom, year);
-                    test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                     string screenshotPath = CaptureScreenshot(driver, "UpdateCerification");
                     test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
 
@@ -145,7 +143,6 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(year);
                 // Perform the education test using the Education data
                 CertificationPageObj.deleteCertification(certificate, year);
-                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                 string screenshotPath = CaptureScreenshot(driver, "DeleteCerification");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
 

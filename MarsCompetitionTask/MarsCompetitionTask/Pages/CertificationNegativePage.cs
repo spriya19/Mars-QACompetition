@@ -1,4 +1,5 @@
 ﻿using MarsCompetitionTask.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,12 @@ namespace MarsCompetitionTask.Pages
         private static IWebElement certifiedFromTextbox => driver.FindElement(By.Name("certificationFrom"));
         private static IWebElement yearDropdown => driver.FindElement(By.Name("certificationYear"));
         private static IWebElement addButton => driver.FindElement(By.XPath("//input[@value='Add']"));
-       // private static IWebElement editIcon => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[4]/span[1]/i"));
         private static IWebElement messageBox => driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
         private static IWebElement updateButton => driver.FindElement(By.XPath("//input[@value='Update']"));
         public void addCertifications(string certificate, string certifiedFrom, string year)
         {
             //Click on certification tab
-            Wait.WaitToBeClickable(driver, "XPath", "//*[@class='ui top attached tabular menu']/a[3]", 6);
+            Wait.WaitToBeClickable(driver, "XPath", "//a[text()='Certifications']", 10);
             certificationsTab.Click();
             //Click on AddNew button
             addNewButton.Click();
@@ -32,7 +32,6 @@ namespace MarsCompetitionTask.Pages
             yearDropdown.SendKeys(year);
             //Click on Add button
             addButton.Click();
-            //Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
             Thread.Sleep(2000);
             string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);
@@ -46,7 +45,7 @@ namespace MarsCompetitionTask.Pages
             }
             else if((popupMessage == expectedMessage1) || (popupMessage == expectedMessage2) || (popupMessage == expectedMessage3))
             {
-                IWebElement cancelIcon = driver.FindElement(By.XPath("//input[@value='Cancel']"));
+                IWebElement cancelIcon = driver.FindElement(By.XPath("//div[@class='five wide field']//input[@value='Cancel']"));
                 cancelIcon.Click();
             }
             else
@@ -56,12 +55,11 @@ namespace MarsCompetitionTask.Pages
         }
         public void UpdateCertifications(string certificate, string certifiedFrom, string year)
         {
-            Wait.WaitToBeClickable(driver, "XPath", "//a[normalize-space()='Certifications']", 20);
-            //Thread.Sleep(2000);
+            Wait.WaitToBeClickable(driver, "XPath", "//a[text()='Certifications']", 10);
             certificationsTab.Click();
            string editiconXPath = $"//tbody/tr[td[text()='{certificate}']]//span[1]";
            IWebElement editIcon = driver.FindElement(By.XPath(editiconXPath));
-            //Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             editIcon.Click();
             certificateTextbox.Clear();
             certificateTextbox.SendKeys(certificate);
@@ -69,9 +67,9 @@ namespace MarsCompetitionTask.Pages
             certifiedFromTextbox.SendKeys(certifiedFrom);
             yearDropdown.SendKeys(year);
             updateButton.Click();
-            Wait.WaitToBeVisible(driver, "XPath", " //div[@class='ns-box-inner']", 15);
-            //Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             //get the popup message text
+            Thread.Sleep(2000);
             string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);
             // string expectedMessage1 = "Certifications as been updated.";
@@ -86,7 +84,6 @@ namespace MarsCompetitionTask.Pages
 
             {
                 IWebElement cancelIcon = driver.FindElement(By.XPath("//input[@value='Cancel']"));
-                // Wait.WaitToBeClickable(driver, "XPath", "//input[@value='Cancel']", 4);
                 cancelIcon.Click();
             }
             else

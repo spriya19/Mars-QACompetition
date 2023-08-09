@@ -12,8 +12,7 @@ namespace MarsCompetitionTask.Utilities
     {
 #pragma warning disable CS8618
 
-        public static  IWebDriver driver;
-       
+        public static IWebDriver driver;
     }
 }
-  
+

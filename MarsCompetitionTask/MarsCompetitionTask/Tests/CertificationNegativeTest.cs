@@ -28,6 +28,8 @@ namespace MarsCompetitionTask.Tests
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+
         }
 
 
@@ -44,8 +46,6 @@ namespace MarsCompetitionTask.Tests
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj.navigateSteps();
             loginTestPageObj.loginSteps();
-            
-
         }
 
         [Test, Order(1)]
@@ -65,7 +65,6 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(year);
                 // Perform the education test using the Education data
                 certificationNegativePageObj.addCertifications(certificate, certifiedFrom, year);
-                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                 string screenshotPath = CaptureScreenshot(driver, "AddCertificationNegative");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
             }
@@ -87,7 +86,6 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(year);
                 // Perform the education test using the Education data
                 certificationNegativePageObj.UpdateCertifications(certificate, certifiedFrom, year);
-                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                 string screenshotPath = CaptureScreenshot(driver, "UpdatedCertificationNegative");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
             }

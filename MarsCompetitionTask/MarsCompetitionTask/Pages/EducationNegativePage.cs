@@ -27,7 +27,7 @@ namespace MarsCompetitionTask.Pages
         {
             Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
             educationTab.Click();
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             addNewButton.Click();
             Wait.WaitToBeClickable(driver, "Name", "instituteName", 5);
             universityTextBox.SendKeys(university);
@@ -37,7 +37,7 @@ namespace MarsCompetitionTask.Pages
             graduationyearDropDown.SendKeys(graduationyear);
             addButton.Click();
             Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);
             //string expectedMessage1 = "Education has been added";
@@ -51,7 +51,7 @@ namespace MarsCompetitionTask.Pages
             }
             else if ((popupMessage == expectedMessage2 || popupMessage == expectedMessage3 || popupMessage == expectedMessage4))
             {
-                IWebElement cancelIcon = driver.FindElement(By.XPath("//input[@value='Cancel']"));
+                IWebElement cancelIcon = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[2]"));
                 cancelIcon.Click();
             }
             else
@@ -62,7 +62,7 @@ namespace MarsCompetitionTask.Pages
         public void updateEducation(string university, string country, string title, string degree, string graduationyear)
         {
                 Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
-            educationTab.Click();
+              educationTab.Click();
                 string editIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[1]";
                 IWebElement editIcon = driver.FindElement(By.XPath(editIconXPath));
                 editIcon.Click();
@@ -75,7 +75,8 @@ namespace MarsCompetitionTask.Pages
                 graduationyearDropDown.SendKeys(graduationyear);
                 Thread.Sleep(1000);
                 updateButton.Click();
-                Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
+            //Wait.WaitToBeVisible(driver, "Xpath", "//div[@class='ns-box-inner']", 5);
+            Thread.Sleep(2000);
                 string popupMessage = messageBox.Text;
             Console.WriteLine("messageBox.Text is: " + popupMessage);
             //string expectedMessage1 = "Education as been Updated";
@@ -87,7 +88,7 @@ namespace MarsCompetitionTask.Pages
              }
              else if ((popupMessage == expectedMessage2) || (popupMessage == expectedMessage3))
              {
-                  IWebElement cancelIcon = driver.FindElement(By.XPath("//tbody//input[@value='Cancel']"));
+                  IWebElement cancelIcon = driver.FindElement(By.XPath("//input[@value='Cancel']"));
                   cancelIcon.Click();
              }
              else

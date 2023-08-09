@@ -52,7 +52,7 @@ namespace MarsCompetitionTask.Pages
 
         public string getVerifyNewEducationData()
         {
-            
+            Thread.Sleep(2000);
             return newEducationData.Text;
             
 
@@ -63,6 +63,7 @@ namespace MarsCompetitionTask.Pages
             educationTab.Click();
             string editIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[1]";
             IWebElement editIcon = driver.FindElement(By.XPath(editIconXPath));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             editIcon.Click();
             universityTextBox.Clear();
             universityTextBox.SendKeys(university);
@@ -71,26 +72,28 @@ namespace MarsCompetitionTask.Pages
             degreeTextBox.Clear();
             degreeTextBox.SendKeys(degree);
             graduationyearDropDown.SendKeys(graduationyear);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             updateButton.Click();
         }
 
        public string getverifyUpdatedEducationData()
        {
-            Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='third']//table[@class='ui fixed table']//td", 4);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             return verifyUpdatedEducationData.Text;          
        }
         public void deleteEduData(string university, string degree)
         {
-            Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[3]", 5);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             educationTab.Click();
             string deleteIconXPath = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[2]";
             IWebElement deleteIcon = driver.FindElement(By.XPath(deleteIconXPath));
+            Thread.Sleep(1000);
             deleteIcon.Click();
            
         }
         public string getVerifyDeletedData()
         {
-            Thread.Sleep(1000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return deletedData.Text;
         }
     }

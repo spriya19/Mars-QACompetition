@@ -40,6 +40,8 @@ namespace MarsCompetitionTask.Tests
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+
         }
 
         private LoginTestPage loginTestPageObj = new LoginTestPage();
@@ -56,7 +58,6 @@ namespace MarsCompetitionTask.Tests
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj.navigateSteps();
             loginTestPageObj.loginSteps();
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
 
@@ -81,7 +82,6 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(degree);
                 string graduationyear = data.Graduationyear;
                 Console.WriteLine(graduationyear);
-                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                 string screenshotPath = CaptureScreenshot(driver, "AddEducation");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
 
@@ -127,7 +127,6 @@ namespace MarsCompetitionTask.Tests
                     //perform the education test using the Education data
                     educationPageObj = new EducationPage();
                    educationPageObj.updateEducation(university, country, title, degree, graduationyear);
-                    test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                     string screenshotPath = CaptureScreenshot(driver, "UpdateEducation");
                     test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
 
@@ -180,7 +179,6 @@ namespace MarsCompetitionTask.Tests
                 //perform the education test using the Education data
                 educationPageObj = new EducationPage();
                 educationPageObj.deleteEduData(university, degree);
-                test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
                 string screenshotPath = CaptureScreenshot(driver, "DeleteEducation");
                 test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
 

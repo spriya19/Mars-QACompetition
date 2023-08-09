@@ -11,7 +11,7 @@ namespace MarsCompetitionTask.Pages
     public class CertificationPage : CommonDriver
 
     {
-        private static IWebElement certificationsTab => driver.FindElement(By.XPath("//div[@class='ui top attached tabular menu']//a[4]"));
+        private static IWebElement certificationsTab => driver.FindElement(By.XPath("//a[text()='Certifications']"));
         private static IWebElement addNewButton => driver.FindElement(By.XPath("//div[@class='ui bottom attached tab segment tooltip-target active']//div[contains(@class,'ui teal button')][normalize-space()='Add New']"));
         private static IWebElement certificateTextbox => driver.FindElement(By.Name("certificationName"));
         private static IWebElement certifiedFromTextbox => driver.FindElement(By.Name("certificationFrom"));
@@ -24,7 +24,9 @@ namespace MarsCompetitionTask.Pages
         public void addCertifications(string certificate, string certifiedFrom, string year)
         {
             //Click on certification tab
-            Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[4]", 5);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+
+            //Thread.Sleep(2000);
             certificationsTab.Click();
             //Click on AddNew button
             addNewButton.Click();
@@ -33,17 +35,20 @@ namespace MarsCompetitionTask.Pages
             certifiedFromTextbox.SendKeys(certifiedFrom);
             yearDropdown.SendKeys(year);
             //Click on Add button
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+
+            //Thread.Sleep(1000);
             addButton.Click();
             Console.WriteLine("Certifications has been added");
         }
         public string getVerifyCertificationList()
         {
-            Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody[1]/tr/td[1]", 20);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return newCertification.Text;
         }
         public void updateCertifications(string certificate, string certifiedFrom, string year)
         {
-            Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[4]", 6);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             certificationsTab.Click();
             string editiconXPath = $"//tbody/tr[td[text()='{certificate}'] and td[text()='{year}']]//span[1]";
             IWebElement editIcon = driver.FindElement(By.XPath(editiconXPath));
@@ -53,26 +58,28 @@ namespace MarsCompetitionTask.Pages
             certifiedFromTextbox.Clear();
             certifiedFromTextbox.SendKeys(certifiedFrom);
             yearDropdown.SendKeys(year);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             updateButton.Click();
             Console.WriteLine("Certification has been updated");
         }
         public string getVerifyUpdateCertificationsList()
         {
-            Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='fourth']//table//td", 6);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             return newUpdatedCertificate.Text;
         }
         public void deleteCertification(string certificate, string year)
         {
-            Wait.WaitToBeClickable(driver, "XPath", "//div[@class='ui top attached tabular menu']//a[4]", 8);
+            Wait.WaitToBeClickable(driver, "XPath", "//a[text()='Certifications']", 8);
             certificationsTab.Click();
             string deleteiconXPath = $"//tbody/tr[td[text()='{certificate}'] and td[text()='{year}']]//span[2]";
             IWebElement deleteIcon = driver.FindElement(By.XPath(deleteiconXPath));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             deleteIcon.Click();
             Console.WriteLine("certification deleted from your Certifications");
         }
         public string getVerifyDeleteCertificationList()
         {
-            Wait.WaitToBeVisible(driver, "XPath", ".//div[@data-tab='fourth']//table//td", 20);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             return deletedCertificate.Text;
         }
 

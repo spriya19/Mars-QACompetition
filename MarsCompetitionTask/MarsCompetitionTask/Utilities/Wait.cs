@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarsCompetitionTask.Utilities
 {
-    public class Wait
+    public class Wait :CommonDriver
     {       
         public static void WaitToBeClickable(IWebDriver driver, string locatorType, string locatorValue, int seconds)
         {
@@ -66,6 +66,12 @@ namespace MarsCompetitionTask.Utilities
 
 
         }
-        
+        public static void TurnOnWait()
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1500);
+
+        }
+
+
     }
 }
