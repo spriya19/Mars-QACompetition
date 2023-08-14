@@ -1,0 +1,57 @@
+﻿[
+  {
+    "University": "Cuba University",
+    "Country": "New Zealand",
+    "Title": "M.B.A",
+    "Degree": "Bachelor of Science",
+    "GraduationYear": 2016
+  },
+
+  {
+    "University": "Anna University",
+    "Country": "India",
+    "Title": "B.A",
+    "Degree": "Information Technology",
+    "GraduationYear": 2013
+  },
+  {
+    "University": 12435457,
+    "Country": "Belize",
+    "Title": "PHD",
+    "Degree": "@#!!$$@!@%!%%^",
+    "GraduationYear": 2005
+  },
+  {
+    "University": "@S#D$F123",
+    "Country": "Colombia",
+    "Title": "MFA",
+    "Degree": "............",
+    "GraduationYear": 2009
+  },
+  {
+    "University": "VRSCET",
+    "Country": "New Zealand",
+    "Title": "BFA",
+    "Degree": "computer science",
+    "GraduationYear": 2009
+
+  },
+  {
+    "University": "Auckland University",
+    "Country": "Country of College/University",
+    "Title": "Title",
+    "Degree": "BFA",
+    "GraduationYear": "Year of Graduation"
+  },
+
+  {
+    "University": "VRSCET",
+    "Country": "New Zealand",
+    "Title": "BFA",
+    "Degree": "computer science",
+    "GraduationYear": 2009
+
+  }
+
+
+]

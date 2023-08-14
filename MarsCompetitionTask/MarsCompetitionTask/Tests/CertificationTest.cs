@@ -1,7 +1,5 @@
 ﻿using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
-using com.sun.org.apache.xml.@internal.resolver.helpers;
-using com.sun.tools.javac.tree;
 using MarsCompetitionTask.Pages;
 using MarsCompetitionTask.TestModel;
 using MarsCompetitionTask.Utilities;
@@ -13,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarsCompetitionTask.Utilities.ExtentReport;
+using MarsCompetionTask.Utilities;
 
 namespace MarsCompetitionTask.Tests  
 {
@@ -23,17 +23,6 @@ namespace MarsCompetitionTask.Tests
 
         private ExtentReports extent;
         private ExtentTest test;
-        [OneTimeSetUp]
-        public void SetupReporting()
-        {
-            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\ExtentReport\\BaseReport.cs";
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
-            extent = new ExtentReports();
-            //htmlReporter = new ExtentHtmlReporter("TestReport.html");
-            extent.AttachReporter(htmlReporter);
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-
-        }
 
         private LoginTestPage loginTestPageObj = new LoginTestPage();
         private CertificationPage CertificationPageObj = new CertificationPage();
@@ -43,21 +32,27 @@ namespace MarsCompetitionTask.Tests
         {
             // Open Chrome Browser
             driver = new ChromeDriver();
+            string email = "spriyak86@gmail.com";
+            string password = "121212";
+            string url = "http://localhost:5000/";
+
+            extent = BaseReportManager.getInstance();
 
             //Login page object identified and defined
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj = new LoginTestPage();
-            loginTestPageObj.navigateSteps();
-            loginTestPageObj.loginSteps();
+            loginTestPageObj.loginSteps(url,email ,password);
         }
         [Test, Order(1)]
-        public void AddCertificationData_Test()
+        public void AddCertification_Test()
         {
-            string sFile = "AddCertificationPositiveData.json";
+            test = extent.CreateTest("AddCertification_Test", "AddCertificationData");
+
+            string sFile = "AddCertificationData.json";
             // Read test data from the JSON file using JsonHelper
-            List<CertificationsTestModel> AddCertificationPositiveData = Jsonhelper.ReadTestDataFromJson<CertificationsTestModel>(sFile);
-            Console.WriteLine(AddCertificationPositiveData.ToString());
-            foreach (var data in AddCertificationPositiveData)
+            List<CertificationsTestModel> AddCertificationData = Jsonhelper.ReadTestDataFromJson<CertificationsTestModel>(sFile);
+            Console.WriteLine(AddCertificationData.ToString());
+            foreach (var data in AddCertificationData)
             {
                 // Access individual test data properties
                 string certificate = data.certificate;
@@ -66,12 +61,16 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(certifiedFrom);
                 string year = data.year;
                 Console.WriteLine(year);
+                test.Log(Status.Pass, "Test Passed");
+                string screenshotPath = ScreenshotReport.CaptureScreenshot(driver, "AddCertification");
+                if (!string.IsNullOrEmpty(screenshotPath))
+                {
+                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                }
+
                 // Perform the education test using the Education data
                 CertificationPageObj.addCertifications(certificate, certifiedFrom, year);
-                string screenshotPath = CaptureScreenshot(driver, "AddCertification");
-                test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-
-                string newCertificate = CertificationPageObj.getVerifyCertificationList();
+              string newCertificate = CertificationPageObj.getVerifyCertificationList();
                 if (certificate == newCertificate)
                 {
                     test.Pass("Added Certificate data and Expected Certificate data match");
@@ -83,13 +82,15 @@ namespace MarsCompetitionTask.Tests
             }
         }
         [Test, Order(2)]
-        public void UpdateCertificationData_Test()
+        public void UpdateCertification_Test()
         {
-            string sFile = "UpdateCertificationPositiveData.json";
+            test = extent.CreateTest("UpdateCertification_Test", "UpdateCertificationData");
+
+            string sFile = "UpdateCertificationData.json";
             // Read test data from the JSON file using JsonHelper
-            List<CertificationsTestModel> UpdateCertificationPositiveData = Jsonhelper.ReadTestDataFromJson<CertificationsTestModel>(sFile);
-            Console.WriteLine(UpdateCertificationPositiveData.ToString());
-            foreach (var data in UpdateCertificationPositiveData)
+            List<CertificationsTestModel> UpdateCertificationData = Jsonhelper.ReadTestDataFromJson<CertificationsTestModel>(sFile);
+            Console.WriteLine(UpdateCertificationData.ToString());
+            foreach (var data in UpdateCertificationData)
             {
                 // Access individual test data properties
                 string certificate = data.certificate;
@@ -98,13 +99,18 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(certifiedFrom);
                 string year = data.year;
                 Console.WriteLine(year);
+                test.Log(Status.Pass, "Test Passed");
+                string screenshotPath = ScreenshotReport.CaptureScreenshot(driver, "UpdateCertification");
+                if (!string.IsNullOrEmpty(screenshotPath))
+                {
+                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                }
+
                 // Perform the education test using the Education data
                 try
                 {
                     CertificationPageObj.updateCertifications(certificate, certifiedFrom, year);
-                    string screenshotPath = CaptureScreenshot(driver, "UpdateCerification");
-                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-
+                    
                     string newUpdatedCertificate = CertificationPageObj.getVerifyUpdateCertificationsList();
                     string verifyRecord = $"//tbody/tr[td[text()='{certificate}'] and td[text()='{year}']]//span[1]";
                     IWebElement desiredElement = driver.FindElement(By.XPath(verifyRecord));
@@ -126,8 +132,10 @@ namespace MarsCompetitionTask.Tests
             }
         }
         [Test, Order(3)]
-        public void DeleteCertificationData_Test()
+        public void DeleteCertification_Test()
         {
+            test = extent.CreateTest("DeleteCertification_Test", "DeleteCertificationData");
+
             string sFile = "DeleteCertificationData.json";
             // Read test data from the JSON file using JsonHelper
             List<CertificationsTestModel> DeleteCertificationData = Jsonhelper.ReadTestDataFromJson<CertificationsTestModel>(sFile);
@@ -141,11 +149,16 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(certifiedFrom);
                 string year = data.year;
                 Console.WriteLine(year);
+                test.Log(Status.Pass, "Test Passed");
+                string screenshotPath = ScreenshotReport.CaptureScreenshot(driver, "DeleteCertification");
+                if (!string.IsNullOrEmpty(screenshotPath))
+                {
+                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                }
+
                 // Perform the education test using the Education data
                 CertificationPageObj.deleteCertification(certificate, year);
-                string screenshotPath = CaptureScreenshot(driver, "DeleteCerification");
-                test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-
+                
                 string deletedCertificate = CertificationPageObj.getVerifyDeleteCertificationList();
                 if (certificate != deletedCertificate)
                 {
@@ -163,20 +176,7 @@ namespace MarsCompetitionTask.Tests
             driver.Quit();
             extent.Flush();
         }
-        private string CaptureScreenshot(IWebDriver driver, string screenshotName)
-        {
-            ITakesScreenshot screenshotDriver = (ITakesScreenshot)driver;
-            Screenshot screenshot = screenshotDriver.GetScreenshot();
-            string screenshotPath = Path.Combine(@"C:\priya\Intenship\Competition Task\Mars-QACompetition\MarsCompetitionTask\MarsCompetitionTask\NunitScreenshot\", $"{screenshotName}_{DateTime.Now:yyyyMMddHHmmss}.png");
-            screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
-            return screenshotPath;
-        }
-        [OneTimeTearDown]
-        public void ExtentTeardown()
-        {
-            extent.Flush();
-        }
-
+        
     }
 }
 
