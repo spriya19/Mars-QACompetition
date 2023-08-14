@@ -1,0 +1,38 @@
+﻿[
+  {
+    "certificate": "C# advance",
+    "certifiedFrom": "Industry Connect",
+    "year": 2011
+  },
+  {
+    "certificate": "AWS Beginner",
+    "certifiedFrom": "MVP Studio",
+    "year": 2015
+  },
+  {
+    "certificate": "Specflow",
+    "certifiedFrom": "Nova Software Technology",
+    "year": 2014
+  },
+  {
+    "certificate": "B.A",
+    "certifiedFrom": "MIT Technologies",
+    "year": 2007
+  },
+  {
+    "certificate": "AWS Beginner",
+    "certifiedFrom": "Auckland",
+    "year": 2009
+  },
+  {
+    "certificate": "AWS Beginner",
+    "certifiedFrom": "Auckland",
+    "year": 2009
+  },
+  {
+    "certificate": "AWS Beginner",
+    "certifiedFrom": "Auckland",
+    "year": "Year"
+  }
+
+]

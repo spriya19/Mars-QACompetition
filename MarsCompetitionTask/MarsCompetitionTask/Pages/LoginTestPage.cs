@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,20 +18,17 @@ namespace MarsCompetitionTask.Pages
         private static IWebElement rememberme => driver.FindElement(By.Name("rememberDetails"));
         private static IWebElement loginButton => driver.FindElement(By.XPath("//button[normalize-space()='Login']"));
 
-        public void navigateSteps()
+        public void loginSteps(string url, string email,string password) 
         {
             //Launch portal
-             driver.Navigate().GoToUrl("http://localhost:5000/");
+            driver.Navigate().GoToUrl(url);
             //Thread.Sleep(3000);
             driver.Manage().Window.Maximize();
 
-        }
-        public void loginSteps() 
-        {
             //Thread.Sleep(2000);
             signInButton.Click();
-            emailTextBox.SendKeys("spriyak86@gmail.com");
-            passwordTextBox.SendKeys("121212");
+            emailTextBox.SendKeys(email);
+            passwordTextBox.SendKeys(password);
             rememberme.Click();
             loginButton.Click();
         }

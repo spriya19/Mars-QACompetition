@@ -2,11 +2,11 @@
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
-using com.sun.tools.@internal.jxc.ap;
-using javax.xml.crypto;
+using MarsCompetionTask.Utilities;
 using MarsCompetitionTask.Pages;
 using MarsCompetitionTask.TestModel;
 using MarsCompetitionTask.Utilities;
+using MarsCompetitionTask.Utilities.ExtentReport;
 using Microsoft.AspNetCore.Routing.Matching;
 using MongoDB.Driver.Core.Misc;
 using NUnit.Framework;
@@ -20,9 +20,9 @@ using System.Diagnostics.Metrics;
 using System.IO.Enumeration;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using static javax.jws.soap.SOAPBinding;
 
 namespace MarsCompetitionTask.Tests
 {
@@ -33,45 +33,34 @@ namespace MarsCompetitionTask.Tests
 
         private ExtentReports extent;
         private ExtentTest test;
-        [OneTimeSetUp]
-        public void SetupReporting()
-        {
-            string reportPath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\Utilities\\ExtentReport\\BaseReport.cs";
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
-            extent = new ExtentReports();
-            extent.AttachReporter(htmlReporter);
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-
-        }
 
         private LoginTestPage loginTestPageObj = new LoginTestPage();
         private EducationPage educationPageObj = new EducationPage();
-        
-        
-        
         [SetUp]
-        public void SetUpAction()
+        public void SetupAuction()
         {
+            string url = "http://localhost:5000/Home";
+            string email = "spriyak86@gmail.com";
+            string password = "121212";
+            extent = BaseReportManager.getInstance();
             driver = new ChromeDriver();
-           //Login page object identified and defined
+            //Login page object identified and defined
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj = new LoginTestPage();
-            loginTestPageObj.navigateSteps();
-            loginTestPageObj.loginSteps();
+            loginTestPageObj.loginSteps(url, email, password);
         }
 
-
         [Test, Order(1)]
-        public void AddEducationData_Test()
+        public void AddEducation_Test()
         {
-            string sFile = "AddEducationPositiveData.json";
-            // Read test data from the JSON file using JsonHelper
-            List<EducationTestModel> AddEducationPositiveData = Jsonhelper.ReadTestDataFromJson<EducationTestModel>(sFile);
-            Console.WriteLine(AddEducationPositiveData.ToString());
+            test = extent.CreateTest("AddEducation_Test", "AddEducationData");
 
-            foreach (var data in AddEducationPositiveData)
+            string sFile = "AddEducationData.json";
+            // Read test data from the JSON file using JsonHelper
+            List<EducationTestModel> AddEducationData = Jsonhelper.ReadTestDataFromJson<EducationTestModel>(sFile);
+            Console.WriteLine(AddEducationData.ToString());
+            foreach (var data in AddEducationData)
             {
-                // Access the LoginData values
                 string university = data.University;
                 Console.WriteLine(university);
                 string country = data.Country;
@@ -82,34 +71,44 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(degree);
                 string graduationyear = data.Graduationyear;
                 Console.WriteLine(graduationyear);
-                string screenshotPath = CaptureScreenshot(driver, "AddEducation");
-                test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                test.Log(Status.Pass, "Test Passed");
+                string screenshotPath = ScreenshotReport.CaptureScreenshot(driver, "AddEducation");
+                if (!string.IsNullOrEmpty(screenshotPath))
+                {
+                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                }
 
                 educationPageObj.addEducation(university, country, title, degree, graduationyear);
+
                 string newEducationData = educationPageObj.getVerifyNewEducationData();
                 if (country == newEducationData)
                 {
                     //Assert.AreEqual(country, newEducationData, "Added Education and Expected Education do not match");
-                    test.Pass("Added Education and Expected Education match");
-
+                    test.Pass("Added Education data and Expected education data match");
                 }
                 else
                 {
-                    // Console.WriteLine("Check error");
-                    test.Fail("Added Education and Expected Education do not match");
+                    //Console.WriteLine("Check error");
+                    test.Fail("Added Education data and Expected education data do not match");
+
                 }
                 Console.WriteLine("Education has been Added");
+
             }
+                
+            
         }
 
         [Test, Order(2)]
-        public void updateEducationData_Test()
+        public void updateEducation_Test()
         {
+            test = extent.CreateTest("UpdateEducation_Test", "UpdateEducationData");
+
             // Read test data from the JSON file using JsonHelper
-            string sFile = "UpdateEducationPositiveData.json";
-            List<EducationTestModel> UpdateEducationPositiveData = Jsonhelper.ReadTestDataFromJson<EducationTestModel>(sFile);
-            Console.WriteLine(UpdateEducationPositiveData.ToString());
-            foreach (var data in UpdateEducationPositiveData)
+            string sFile = "UpdateEducationData.json";
+            List<EducationTestModel> UpdateEducationData = Jsonhelper.ReadTestDataFromJson<EducationTestModel>(sFile);
+            Console.WriteLine(UpdateEducationData.ToString());
+            foreach (var data in UpdateEducationData)
             {
                 // Access the LoginData values
                 string university = data.University;
@@ -122,23 +121,24 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(degree);
                 string graduationyear = data.Graduationyear;
                 Console.WriteLine(graduationyear);
+                test.Log(Status.Pass, "Test Passed");
+                string screenshotPath = ScreenshotReport.CaptureScreenshot(driver, "UpdateEducation");
+                if (!string.IsNullOrEmpty(screenshotPath))
+                {
+                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                }
+
                 try
                 {
                     //perform the education test using the Education data
                     educationPageObj = new EducationPage();
                    educationPageObj.updateEducation(university, country, title, degree, graduationyear);
-                    string screenshotPath = CaptureScreenshot(driver, "UpdateEducation");
-                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-
-                    string updatedEducationData = educationPageObj.getverifyUpdatedEducationData();
                     string verifyRecord = $"//tbody/tr[td[text()='{university}'] and td[text()='{degree}']]//span[1]";
-
                     IWebElement desiredElement = driver.FindElement(By.XPath(verifyRecord));
 
-                    // Step 2: Perform the verification
-                    //Console.WriteLine("Verification for updated record");
-                    Console.WriteLine("Expected Data: " + country);
-                    Console.WriteLine("Updated Education Data: " + updatedEducationData);
+                    Console.WriteLine("Verification for updated record");
+                    //Console.WriteLine("Expected Data: " + country);
+                   // Console.WriteLine("Updated Education : " + updateEducation);
                     if (desiredElement != null && desiredElement.Displayed)
 
                     {
@@ -148,6 +148,7 @@ namespace MarsCompetitionTask.Tests
                     {
                         test.Fail("Updated Education and Expected Education do not match");
                     }
+                    Console.WriteLine("Education Updated successfully ");
                 }
                 catch (NoSuchElementException)
                 {
@@ -159,11 +160,13 @@ namespace MarsCompetitionTask.Tests
         [Test, Order(3)]
         public void deleteEducation_Test()
         {
+            test = extent.CreateTest("UpdateEducation_Test", "DeleteEducation");
+
             // Read test data from the JSON file using JsonHelper
-            string sFile = "DeleteData.json";
-            List<EducationTestModel> DeleteData = Jsonhelper.ReadTestDataFromJson<EducationTestModel>(sFile);
-            Console.WriteLine(DeleteData.ToString());
-            foreach (var data in DeleteData)
+            string sFile = "DeleteEducation.json";
+            List<EducationTestModel> DeleteEducation = Jsonhelper.ReadTestDataFromJson<EducationTestModel>(sFile);
+            Console.WriteLine(DeleteEducation.ToString());
+            foreach (var data in DeleteEducation)
             {
                 // Access the LoginData values
                 string university = data.University;
@@ -176,52 +179,38 @@ namespace MarsCompetitionTask.Tests
                 Console.WriteLine(degree);
                 string graduationyear = data.Graduationyear;
                 Console.WriteLine(graduationyear);
+                test.Log(Status.Pass, "Test Passed");
+                string screenshotPath = ScreenshotReport.CaptureScreenshot(driver, "DeleteEducation");
+                if (!string.IsNullOrEmpty(screenshotPath))
+                {
+                    test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                }
+
                 //perform the education test using the Education data
                 educationPageObj = new EducationPage();
                 educationPageObj.deleteEduData(university, degree);
-                string screenshotPath = CaptureScreenshot(driver, "DeleteEducation");
-                test.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-
-                string DeletedData = educationPageObj.getVerifyDeletedData();
+                 string DeletedData = educationPageObj.getVerifyDeletedData();
                 if (country != DeletedData)
                 {
-                    // Assert.AreEqual(country, DeletedData, "Actual updated education data and expected updated education data do not match");
-                    test.Pass("Deleted Education and Expected Education do not match");
+                    test.Pass("Deleted Education data and Expected Education data do not  match");
 
                 }
                 else
                 {
-                    //Assert.AreNotEqual(country, DeletedData, "Actual updated education data and expected updated education data do match");
-                    test.Fail("Deleted Education and Expected Education  match");
-                }
+                    test.Fail("Deleted Education data and Expected Education data do not  match");
+                                    }
                 Console.WriteLine("Education Entry successfully removed");
             }
         }
+
+       
         [TearDown]
 
         public void TearDownAction()
         {
                 driver.Quit();
-              extent.Flush();
+                extent.Flush();
         }
-        private string CaptureScreenshot(IWebDriver driver, string screenshotName)
-        {
-            ITakesScreenshot screenshotDriver = (ITakesScreenshot)driver;
-            Screenshot screenshot = screenshotDriver.GetScreenshot();
-            string screenshotPath = Path.Combine(@"C:\priya\Intenship\Competition Task\Mars-QACompetition\MarsCompetitionTask\MarsCompetitionTask\NunitScreenshot\", $"{screenshotName}_{DateTime.Now:yyyyMMddHHmmss}.png");
-            screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
-            return screenshotPath;
-        }
-        [OneTimeTearDown]
-        public void ExtentTeardown()
-        {
-            extent.Flush();
-        }
-
-
-
-
-
     }
 }
 
