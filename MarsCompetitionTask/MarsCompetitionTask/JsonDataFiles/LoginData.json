@@ -1,6 +1,6 @@
-﻿[
-  {
-    "Email": "spriyak86@gmail.com",
-     "Password": 121212
-  }
-]
+﻿{
+
+  "email": "spriyak86@gmail.com",
+  "password": 121212
+
+}

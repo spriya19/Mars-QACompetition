@@ -45,12 +45,7 @@ namespace MarsCompetitionTask.Tests
             driver = new ChromeDriver();
             //Login page object identified and defined
             loginTestPageObj = new LoginTestPage();
-            loginTestPageObj = new LoginTestPage();
             loginTestPageObj.LoginSteps();
-
-
-
-
         }
 
         [Test, Order(1)]

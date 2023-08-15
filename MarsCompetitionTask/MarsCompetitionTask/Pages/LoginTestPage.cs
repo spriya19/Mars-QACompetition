@@ -27,12 +27,35 @@ namespace MarsCompetitionTask.Pages
             driver.Navigate().GoToUrl("http://localhost:5000/");
             driver.Manage().Window.Maximize();
 
-           signInButton.Click();
-           emailTextBox.SendKeys("spriyak86@gmail.com");
-           passwordTextBox.SendKeys("121212");
-           loginButton.Click();
-        }
+            // Read login credentials from the JSON file
+            string jsonFilePath = "C:\\priya\\Intenship\\Competition Task\\Mars-QACompetition\\MarsCompetitionTask\\MarsCompetitionTask\\JsonDataFiles\\LoginData.json";
+            // Deserialize the JSON content into LoginCredentials object
+            string jsonContent = File.ReadAllText(jsonFilePath);
 
+            // Parse JSON using JObject
+            JObject jsonObject = JObject.Parse(jsonContent);
+#pragma warning disable CS8602
+
+            string email = jsonObject["email"].ToString();
+            string password = jsonObject["password"].ToString();
+
+            // Click the "Sign In" button
+            Wait.WaitToBeClickable(driver, "XPath", "//a[text()='Sign In']", 5);
+            signInButton.Click();
+
+            // Enter the provided email
+            Wait.WaitToBeVisible(driver, "Name", "email", 5);
+            emailTextBox.SendKeys(email);
+
+            // Enter the provided password
+            Wait.WaitToBeVisible(driver, "Name", "password", 5);
+            passwordTextBox.SendKeys(password);
+
+            // Click the "Login" button
+            Wait.WaitToBeClickable(driver, "XPath", "//button[text()='Login']", 5);
+            loginButton.Click();
+            Thread.Sleep(3000);
+        }
 
 
     }
