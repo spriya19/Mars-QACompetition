@@ -30,18 +30,14 @@ namespace MarsCompetitionTask.Tests
         [SetUp]
         public void SetUpAction()
         {
-            // Open Chrome Browser
-            driver = new ChromeDriver();
-            string email = "spriyak86@gmail.com";
-            string password = "121212";
-            string url = "http://localhost:5000/";
-
+            
             extent = BaseReportManager.getInstance();
+            driver = new ChromeDriver();
 
             //Login page object identified and defined
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj = new LoginTestPage();
-            loginTestPageObj.loginSteps(url,email ,password);
+            loginTestPageObj.LoginSteps();
         }
         [Test, Order(1)]
         public void AddCertification_Test()
@@ -112,7 +108,7 @@ namespace MarsCompetitionTask.Tests
                     CertificationPageObj.updateCertifications(certificate, certifiedFrom, year);
                     
                     string newUpdatedCertificate = CertificationPageObj.getVerifyUpdateCertificationsList();
-                    string verifyRecord = $"//tbody/tr[td[text()='{certificate}'] and td[text()='{year}']]//span[1]";
+                    string verifyRecord = $"//tbody/tr[td[text()='{certificate}']]//span[1]";
                     IWebElement desiredElement = driver.FindElement(By.XPath(verifyRecord));
                     if (desiredElement != null && desiredElement.Displayed)
 

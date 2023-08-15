@@ -9,6 +9,7 @@ using MarsCompetitionTask.Utilities;
 using MarsCompetitionTask.Utilities.ExtentReport;
 using Microsoft.AspNetCore.Routing.Matching;
 using MongoDB.Driver.Core.Misc;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
@@ -20,6 +21,7 @@ using System.Diagnostics.Metrics;
 using System.IO.Enumeration;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http.Json;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,15 +41,16 @@ namespace MarsCompetitionTask.Tests
         [SetUp]
         public void SetupAuction()
         {
-            string url = "http://localhost:5000/Home";
-            string email = "spriyak86@gmail.com";
-            string password = "121212";
             extent = BaseReportManager.getInstance();
             driver = new ChromeDriver();
             //Login page object identified and defined
             loginTestPageObj = new LoginTestPage();
             loginTestPageObj = new LoginTestPage();
-            loginTestPageObj.loginSteps(url, email, password);
+            loginTestPageObj.LoginSteps();
+
+
+
+
         }
 
         [Test, Order(1)]

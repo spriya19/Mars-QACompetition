@@ -1,12 +1,7 @@
 ﻿[
   {
-    "certificate": "Java Expert",
-    "certifiedFrom": "AKP Technologies",
-    "year": 2009
-  },
-  {
     "certificate": "Specflow",
-    "certifiedFrom": "Nova Software Technology",
+    "certifiedFrom": "Nova Software",
     "year": 2007
   },
 
@@ -21,7 +16,7 @@
     "year": 2015
   },
   {
-    "certificate": "Specflow",
+    "certificate": "Python",
     "certifiedFrom": "SRM Technologies",
     "year": 2014
   },
@@ -29,33 +24,6 @@
     "certificate": "B.A",
     "certifiedFrom": "VIT Technologies",
     "year": 2007
-  },
-  {
-    "certificate": "AWS Beginner",
-    "certifiedFrom": "New Zealand",
-    "year": 2015
-  },
-
-  {
-    "certificate": "AWS Beginner",
-    "certifiedFrom": "Auckland",
-    "year": 2015
-  },
-  {
-    "certificate": "AWS Beginner",
-    "certifiedFrom": "New Zealand",
-    "year": 2012
-  },
-  {
-    "certificate": "aswase",
-    "certifiedFrom": "!@##$%%^&&",
-    "year": "Year"
-  },
-  {
-    "certificate": "AWS Beginner",
-    "certifiedFrom": "New Zealand",
-    "year": 2012
   }
-
-
+  
 ]

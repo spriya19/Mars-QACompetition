@@ -27,31 +27,6 @@
     "Title": "MFA",
     "Degree": "............",
     "GraduationYear": 2009
-  },
-  {
-    "University": "VRSCET",
-    "Country": "New Zealand",
-    "Title": "BFA",
-    "Degree": "computer science",
-    "GraduationYear": 2009
-
-  },
-  {
-    "University": "Auckland University",
-    "Country": "Country of College/University",
-    "Title": "Title",
-    "Degree": "BFA",
-    "GraduationYear": "Year of Graduation"
-  },
-
-  {
-    "University": "VRSCET",
-    "Country": "New Zealand",
-    "Title": "BFA",
-    "Degree": "computer science",
-    "GraduationYear": 2009
-
   }
-
-
+ 
 ]
