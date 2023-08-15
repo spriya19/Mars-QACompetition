@@ -18,7 +18,6 @@ namespace MarsCompetitionTask.Pages
         private static IWebElement signInButton => driver.FindElement(By.XPath("//a[normalize-space()='Sign In']"));
         private static IWebElement emailTextBox => driver.FindElement(By.Name("email"));
         private static IWebElement passwordTextBox => driver.FindElement(By.Name("password"));
-        //private static IWebElement rememberme => driver.FindElement(By.Name("rememberDetails"));
         private static IWebElement loginButton => driver.FindElement(By.XPath("//button[normalize-space()='Login']"));
 
         public void LoginSteps()
