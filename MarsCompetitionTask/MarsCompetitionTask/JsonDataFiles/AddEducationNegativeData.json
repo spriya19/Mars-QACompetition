@@ -1,0 +1,35 @@
+﻿[
+  {
+    "University": "Auckland University",
+    "Country": "Cuba",
+    "Title": "B.A",
+    "Degree": "BFA",
+    "GraduationYear": "2022"
+  },
+
+
+  {
+    "University": "VRSCET",
+    "Country": "India",
+    "Title": "B.A",
+    "Degree": "",
+    "GraduationYear": 2007
+
+  },
+  {
+    "University": "VRSCET",
+    "Country": "India",
+    "Title": "B.A",
+    "Degree": "computer science",
+    "GraduationYear": 2005
+  },
+  {
+    "University": "VRSCET",
+    "Country": "India",
+    "Degree": "computer science",
+    "GraduationYear": 2007,
+    "Title": "B.A"
+
+  }
+
+]
